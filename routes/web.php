@@ -28,9 +28,9 @@ Route::get('az', function () {
     };
     dd(array_map($func,range(1, 5)));
 });
-Route::get('/posts/{post}', function($slug) {
+Route::get('/posts/{foo}', function(Post $foo) {
     return view('post', [
-        'post'=>Post::findOrFail($slug)
+        'post'=>$foo//Post::findOrFail($slug)
     ]);
 });
 Route::get('/products', [ProductController::class, 'index']);
