@@ -38,7 +38,7 @@ class Post1
        return cache()->rememberForever('posts.all', function() {
            return collect(File::files(resource_path('posts')))
                ->map(fn($file) => YamlFrontMatter::parseFile($file))
-               ->map(fn($document) => new Post(
+               ->map(fn($document) => new Post1(
                    $document->title,
                    $document->excerpt,
                    $document->date,

@@ -17,5 +17,8 @@
     </head>
     <body class="antialiased">
        {{ $title }}
+       <x-alert type="danger" :message="azum felawen">
+           This is a alert
+       </x-alert>
     </body>
 </html>
