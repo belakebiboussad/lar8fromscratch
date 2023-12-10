@@ -30,6 +30,14 @@ class Post extends Model
             return throw new ModelNotFoundException();
         return $post;
     }
+    public function scopeFilter($query)
+    {
+        if(request('search'))
+        {
+            $query->where('title', 'like', '%' . request('search'). '%')
+                ->orwhere('body', 'like', '%' . request('search'). '%');
+        }
+    }
     public function category()
     {
         return $this->belongsTo(Category::class);
