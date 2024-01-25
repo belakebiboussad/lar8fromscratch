@@ -37,11 +37,10 @@ class Post extends Model
         });
         $query->when($filters['category'] ?? false, fn($query, $category) =>
                 $query->whereHas('category', fn($query) => $query->where('slug',$category)));
-//        if(isset($filters['search']))
-//        {
-//            $query->where('title', 'like', '%' . request('search'). '%')
-//                ->orwhere('body', 'like', '%' . request('search'). '%');
-//        }
+        $query->when($filters['author'] ?? false, fn($query, $author) =>
+                $query->whereHas('author', fn($query) => $query->where('username',$author)));
+
+
     }
     public function scopeByCategory($query, $categoryId)
     {

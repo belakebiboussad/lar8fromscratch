@@ -27,9 +27,9 @@ class PostController extends Controller
 //        }
   //      dd(request()->only('search'));
         return view('posts.index', [
-            'posts' => Post::latest()->filter(request(['search','category']))->get(),
+            'posts' => Post::latest()->filter(request(['search','category','author']))->get(),
 //                  'posts' => Post::latest()->get(),
-            'categories' => Category::all(),
+//            'categories' => Category::all(),
         ]);
 
     }

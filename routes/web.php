@@ -26,17 +26,3 @@ Route::post('/products/create', [ProductController::class, 'create'])->name('cre
 //Route::post('/createProducts', [ProductController::class, 'create']);
 //Route::resource('products', ProductController::class);//Route::get('/welcome',[WelcomeController::class,'index']);
 Route::get('welcome',[WelcomeController::class, 'index']);
-
-//Route::get('categories/{category:slug}',function(Category $category){
-//    return view('posts',[
-//        'posts'=> $category->posts,//->load(['category','author']),
-//        'currentCategory'=>$category,
-//        'categories'=>Category::all()
-//    ]);
-//})->name('category');
-Route::get('authors/{author:username}',function(User $author){
-    return view('posts',[
-        'posts'=> $author->posts->load('category','author'),
-        'categories'=>Category::all()
-    ]);
-});
