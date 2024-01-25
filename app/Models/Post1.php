@@ -59,4 +59,8 @@ class Post1
             return throw new ModelNotFoundException();
         return $post;
     }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

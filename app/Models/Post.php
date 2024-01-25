@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Post extends Model
 {
-    use HasFactory;
-//    protected $fillable=['title','excerpt','body'];
+    use HasFactory;// protected $fillable=['title','excerpt','body'];
     protected $guarded=['id'];
     protected $with = ['category','author'];
     public function getRouteKeyName()
@@ -30,13 +29,23 @@ class Post extends Model
             return throw new ModelNotFoundException();
         return $post;
     }
-    public function scopeFilter($query)
+    public function scopeFilter($query,array $filters)
     {
-        if(request('search'))
-        {
-            $query->where('title', 'like', '%' . request('search'). '%')
-                ->orwhere('body', 'like', '%' . request('search'). '%');
-        }
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query->where('title', 'like', '%' . $search . '%')
+                ->orwhere('body', 'like', '%' . $search . '%');
+        });
+        $query->when($filters['category'] ?? false, fn($query, $category) =>
+                $query->whereHas('category', fn($query) => $query->where('slug',$category)));
+//        if(isset($filters['search']))
+//        {
+//            $query->where('title', 'like', '%' . request('search'). '%')
+//                ->orwhere('body', 'like', '%' . request('search'). '%');
+//        }
+    }
+    public function scopeByCategory($query, $categoryId)
+    {
+        return $query->where('category_id', $categoryId);
     }
     public function category()
     {
@@ -46,4 +55,5 @@ class Post extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
+
 }
