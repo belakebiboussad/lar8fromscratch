@@ -12,24 +12,22 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
-//        DB::listen(function ($query) {
-//            logger($query->sql, $query->bindings);
-//        });
-//        $categoryPosts = Post::byCategory(1)->get();
-//        dd($categoryPosts);
 //        $posts = Post::latest();
 //        if(request('search')) {
 //            $posts->where('title', 'like', '%' . request('search') . '%')
 //                    ->orwhere('body', 'like', '%' . request('search'). '%');
 //        }
   //      dd(request()->only('search'));
+
+        //dd($request->getQueryString());
+//        return Post::latest()->filter(request(['search','category','author']))->paginate(3);
         return view('posts.index', [
-            'posts' => Post::latest()->filter(request(['search','category','author']))->get(),
-//                  'posts' => Post::latest()->get(),
-//            'categories' => Category::all(),
+                'posts' => Post::latest()->filter(
+                    request(['search','category','author'])
+                )->paginate(6)->withQueryString(),
         ]);
 
     }

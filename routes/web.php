@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Category;
 use App\Models\Post;
@@ -23,6 +24,7 @@ Route::get('/',[PostController::class, 'index'])->name('home');
 Route::get('/posts/{post}',[PostController::class, 'show']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products/create', [ProductController::class, 'create'])->name('createProduct');
-//Route::post('/createProducts', [ProductController::class, 'create']);
-//Route::resource('products', ProductController::class);//Route::get('/welcome',[WelcomeController::class,'index']);
+//Route::post('/createProducts', [ProductController::class, 'create']);//Route::resource('products', ProductController::class);//Route::get('/welcome',[WelcomeController::class,'index']);
 Route::get('welcome',[WelcomeController::class, 'index']);
+Route::get('register',[RegisterController::class, 'create']);
+Route::post('register',[RegisterController::class, 'store']);
