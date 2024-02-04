@@ -1,12 +1,9 @@
 <?php
 
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\WelcomeController;
-use App\Models\Category;
-use App\Models\Post;
-use App\Models\User;
 use \App\Http\Controllers\PostController;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -26,5 +23,8 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products/create', [ProductController::class, 'create'])->name('createProduct');
 //Route::post('/createProducts', [ProductController::class, 'create']);//Route::resource('products', ProductController::class);//Route::get('/welcome',[WelcomeController::class,'index']);
 Route::get('welcome',[WelcomeController::class, 'index']);
-Route::get('register',[RegisterController::class, 'create']);
-Route::post('register',[RegisterController::class, 'store']);
+Route::get('register',[RegisterController::class, 'create'])->middleware('guest');
+Route::post('register',[RegisterController::class, 'store'])->middleware('guest');
+Route::get('login',[SessionController::class, 'create'])->middleware('guest');
+Route::post('login',[SessionController::class, 'store']);
+Route::post('logout',[SessionController::class, 'destroy']);
