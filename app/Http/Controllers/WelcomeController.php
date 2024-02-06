@@ -68,4 +68,8 @@ class WelcomeController extends Controller
     {
         //
     }
+    public function getflex()
+    {
+        return view("flex");
+    }
 }
