@@ -1,14 +1,14 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\WelcomeController;
 use \App\Http\Controllers\PostController;
-use App\Services\Newsletter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CommentController;
-use Illuminate\Validation\ValidationException;
+
 
 //use Spatie\YamlFrontMatter\YamlFrontMatter;
 /*
@@ -21,7 +21,8 @@ use Illuminate\Validation\ValidationException;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::post('newsletter', function(Newsletter $newsletter) {
+Route::post('newsletter', NewsletterController::class);
+/*Route::post('newsletter', function(Newsletter $newsletter) {
     request()->validate(['email'=>'required|email']);
 
     try {
@@ -33,6 +34,7 @@ Route::post('newsletter', function(Newsletter $newsletter) {
     }
     return redirect('/')->with("success",'you are now signed up for our newsletter');
 });
+*/
 Route::get('/',[PostController::class, 'index'])->name('home');
 Route::get('/posts/{post}',[PostController::class, 'show']);
 Route::post('posts/{post:slug}/comments',[CommentController::class, 'store']);
