@@ -43,7 +43,7 @@
                     <label>Created At:</label>
                     <p>{{ date('M j, Y h:ia', strtotime($post->created_at)) }}</p>
                 </dl>
-
+<!-- com -->
                 <dl class="dl-horizontal">
                     <label>Last Updated:</label>
                     <p>{{ date('M j, Y h:ia', strtotime($post->updated_at)) }}</p>
